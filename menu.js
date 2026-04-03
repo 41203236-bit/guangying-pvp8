@@ -382,10 +382,16 @@ els.copyBtn.addEventListener('click', async ()=>{
 });
 
 
-els.guideOverlay.addEventListener('click', (e)=>{
-  if (e.target === els.guideOverlay) hideGuide();
+els.guideOverlay.addEventListener('click', ()=>{
+  hideGuide();
 });
-els.guideCard.addEventListener('click', (e)=> e.stopPropagation());
+els.guideCard.addEventListener('click', (e)=>{
+  const interactive = e.target.closest('button, a, input, textarea, select, label');
+  if (interactive) e.stopPropagation();
+});
+document.addEventListener('keydown', (e)=>{
+  if (e.key === 'Escape' && els.guideOverlay.classList.contains('show')) hideGuide();
+});
 
 function init(){
   els.playerNameText.textContent = playerName;
